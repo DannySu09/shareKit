@@ -12,8 +12,9 @@
         weixin = shareKit.getElementsByClassName('js-shareKit-weixin')[0];
         shareKit.baseConf = makeBase();
         qzone.onclick = qzoneFunc;
+        weiboFunc(shareKit.baseConf);
     };
-    // handler
+    // qzone share handler
     var qzoneFunc = function(e){
         e.preventDefault();
         makeQzone(shareKit.baseConf);
@@ -21,7 +22,7 @@
         function makeQzone(conf){
             var p = {
                 //url: conf.link,
-                url: 'http://www.baidu.com',
+                url: conf.link,
                 showcount:'1',/*是否显示分享总数,显示：'1'，不显示：'0' */
                 desc: '',/*默认分享理由(可选)*/
                 summary: conf.desc,/*分享摘要(可选)*/
@@ -46,6 +47,25 @@
         }
     };
 
+//    weibo share handler
+    var weiboFunc = function(conf){
+      var defaultText = '我分享了<东邪西毒>博客的《'+conf.title+'》: '+conf.link;
+      WB2.anyWhere(function(W){
+        W.widget.publish({
+          action:'publish',
+          type:'web',
+          //refer:'y',
+          language:'zh_cn',
+          button_type:'red',
+          button_size:'middle',
+          appkey:'3125265748',
+          id: 'js-shareKit-weibo',
+          uid: '1624118717',
+          default_text: defaultText
+        });
+      });
+    };
+
 //    make the base data
     var makeBase = function () {
         var baseConf = {};
@@ -65,5 +85,5 @@
             }
         }
     };
-    window.onload = init;
+    module.exports = init;
 })(document);
