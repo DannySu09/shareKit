@@ -1,3 +1,3 @@
 .idea
 node_modules
-.sass-caches
+css/.sass-cache

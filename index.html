@@ -13,13 +13,15 @@
     <li class="shareKit-item shareKit-qzone"><a class="js-shareKit-qzone" title="分享到Qzone"><i class="fa fa-qq"></i></a></li>
     <li class="shareKit-item shareKit-weibo"><a class="js-shareKit-weibo" title="分享到weibo"><i class="fa fa-weibo"></i></a></li>
     <li class="shareKit-item shareKit-twitter"><a class="js-shareKit-twitter" title="分享到twitter"><i class="fa fa-twitter"></i></a></li>
-    <li class="shareKit-item shareKit-weixin"><a class="js-shareKit-weixin" title="分享到wechat"><i class="fa fa-weixin"></i></a></li>
+    <li class="shareKit-item shareKit-wechat">
+        <a class="js-shareKit-wechat" title="分享到wechat"><i class="fa fa-weixin"></i></a>
+        <div class="shareKit-wechat-QRCode js-shareKit-wechat-QRCode"></div>
+    </li>
 </ul>
 <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/shareKit.js"></script>
 <script>
     window.onload = window.shareKit({
-        link: 'http://snwin.co',
         desc: 'Prepure before being eaten',
         title: 'An apple',
         twitterName: 'sunaiwen'
