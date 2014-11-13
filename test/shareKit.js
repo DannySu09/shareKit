@@ -208,11 +208,10 @@
             return 'pc';
         }
     };
-    if(window.define != null) {
-        define(function(){
-            return SK;
-        });
-    } else {
-        exports.SK = SK;
-    }
+
+//    for test
+    exports.urlConcat = urlConcat;
+    exports.detectDevice = detectDevice;
+    exports.findDesc =findDesc;
+    exports.SK = SK;
 })(this);

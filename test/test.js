@@ -28,6 +28,11 @@ describe('Share Kit', function(){
         });
     });
     describe('SK Object', function(){
+        var evt;
+        beforeEach(function(){
+            evt = document.createEvent('MouseEvent');
+            evt.initEvent('click', true, true);
+        });
         describe('SK Configuration Test', function(){
             it('Should empty object has default options', function(){
                 var sk = new SK();
@@ -68,21 +73,7 @@ describe('Share Kit', function(){
                     done();
                 };
                 sk.bind(sk.qzEle, handler);
-                var evt = document.createEvent('MouseEvent');
-                evt.initEvent('click', true, true);
                 sk.qzEle.dispatchEvent(evt, true);
-            });
-            it('Should open a new window with correct props', function(){
-                var sk = new SK();
-                var conf = sk.openWin({
-                    url: 'http://www.baidu.com',
-                    toolbar: 'no',
-                    scrollbars: 'no',
-                    height: 650,
-                    top: 50,
-                    stub: 1
-                });
-                expect(conf).to.equal('toolbar=no,scrollbars=no,height=650,top=50,stub=1');
             });
         });
         describe('SK Constructor', function(){
@@ -94,13 +85,44 @@ describe('Share Kit', function(){
         });
         describe('SK elements\' event binding', function(){
             it('Should handler be fired', function(){
-                var evt = document.createEvent('MouseEvent');
                 var st = sinon.stub(SK.prototype, 'qzoneFunc');
                 var sk = new SK();
-                evt.initEvent('click', true, true);
-                var re = sk.qzEle.dispatchEvent(evt,true);
+                sk.qzEle.dispatchEvent(evt,true);
                 expect(st.callCount).to.equal(1);
                 st.restore();
+            });
+        });
+        describe('The Qzone share function', function(){
+            var args = null;
+            var cache = SK.prototype.openWin;
+            beforeEach(function(){
+                var fakeOpenWin = function(){
+                    args = arguments[0];
+                };
+                SK.prototype.openWin = fakeOpenWin;
+            });
+            it('Should qzoneFunc open a window with correct options', function(){
+                var sk = new SK({
+                    link: 'http://baidu.com',
+                    title: 'qzone share function test',
+                    twitterName: 'sunaiwen',
+                    desc: 'this is a test testing qzone share function.'
+                });
+
+                sk.qzEle.dispatchEvent(evt, true);
+
+                expect(args.menubar).to.equal('no');
+                expect(args.resizable).to.equal('no');
+                expect(args.status).to.equal('no');
+                expect(args.toolbar).to.equal('no');
+                expect(args.top).to.equal(50);
+                expect(args.left).to.equal(200);
+                expect(args.width).to.equal(600);
+                expect(args.height).to.equal(650);
+                expect(args.title).to.equal('Sharing to Qzone');
+            });
+            afterEach(function(){
+                SK.prototype.openWin = cache;
             });
         });
     });
