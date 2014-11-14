@@ -1,16 +1,22 @@
 var expect = chai.expect;
+var skObj = require('./shareKit.js');
+for(var k in skObj) {
+    window[k] = skObj[k];
+}
 describe('Share Kit', function(){
     describe('Test Url Concat', function(){
         it('should return encode url', function(){
             var src = urlConcat({
                 a:'a',
-                b:'bb:',
-                c:123,
-                d:'777',
+                b:'bb\/\/',
+                c: '123??%',
+                d: 777,
                 e:'888'
             }, 'http://www.baidu.com');
-            var dest = 'http://www.baidu.com?'+'a=a&b=bb&c=123&d=777&e=888';
+            var dest = 'http://www.baidu.com?'+'a=a&b=bb\/\/&c=123??%&d=777&e=888';
+
             expect(src).to.not.equal(dest);
+            expect(decodeURIComponent(src)).to.equal(dest);
         });
     });
 
@@ -19,9 +25,9 @@ describe('Share Kit', function(){
             var ua_1 = 'Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30';
             var ua_2 = 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36';
             var ua_3 = 'Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25';
-            var re_1 = detectDevice(ua_1);
-            var re_2 = detectDevice(ua_2);
-            var re_3 = detectDevice(ua_3);
+            var re_1 = SK.prototype.detectDevice(ua_1);
+            var re_2 = SK.prototype.detectDevice(ua_2);
+            var re_3 = SK.prototype.detectDevice(ua_3);
             expect(re_1).to.equal('phone');
             expect(re_2).to.equal('pc');
             expect(re_3).to.equal('phone');
@@ -123,6 +129,28 @@ describe('Share Kit', function(){
             });
             afterEach(function(){
                 SK.prototype.openWin = cache;
+            });
+        });
+        describe('The wechat share function', function(){
+            it('Should conduct correct info in wechat sharing', function(){
+                var cache = SK.prototype.detectDevice;
+                SK.prototype.detectDevice = function(){
+                    return 'phone';
+                };
+                var sk = new SK({
+                    link: location.href,
+                    title: 'wechat function',
+                    desc: 'wechat function test you wether you love me.',
+                    portrait: 'https://d13yacurqjgara.cloudfront.net/users/52277/screenshots/1807333/gille_dribbble_boreas_v01-01.png'
+                });
+                sk.wxEle.dispatchEvent(evt, true);
+                SK.prototype.detectDevice = cache;
+            });
+            it('Should show qrcode when in pc env', function(){
+                var sk = new SK({
+                    link: location.href
+                });
+                sk.wxEle.dispatchEvent(evt, true);
             });
         });
     });

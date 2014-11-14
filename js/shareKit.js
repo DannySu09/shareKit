@@ -1,4 +1,6 @@
 ;(function(exports){
+    var QRCode = require('qrcode');
+    console.log(QRCode);
     var SK = function(options){
         this.baseConf = this.setOptions(options);
         this.device = detectDevice(navigator.userAgent);
@@ -54,6 +56,9 @@
             windowConf += (key+'='+temp[key]+',');
         }
         windowConf = windowConf.slice(0,-1);
+        if(options.stub != null) {
+            return windowConf;
+        }
         window.open(title, url, windowConf);
     };
 
@@ -176,7 +181,7 @@
     SK.prototype.getOption = function(){
         var re = {};
         for(var key in this.baseConf) {
-            re[key] = this.baseConf[key];
+            re[key] = this.base[key];
         }
         return re;
     };

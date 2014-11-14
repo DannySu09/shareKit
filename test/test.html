@@ -17,7 +17,7 @@
     <li class="shareKit-item shareKit-twitter"><a class="js-shareKit-twitter" title="分享到twitter">twitter</i></a></li>
     <li class="shareKit-item shareKit-wechat">
         <a class="js-shareKit-wechat" title="分享到wechat">weixin</i></a>
-        <div class="shareKit-wechat-QRCode js-shareKit-wechat-QRCode"></div>
+        <div class="shareKit-wechat-QRCode"><canvas class="js-shareKit-wechat-QRCode" width="400" height="400"></canvas></div>
     </li>
 </ul>
 <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
@@ -25,8 +25,7 @@
 <script>mocha.setup('bdd');</script>
 <script src="../node_modules/chai/chai.js"></script>
 <script src="../node_modules/sinon/pkg/sinon.js"></script>
-<script src="shareKit.js"></script>
-<script src="../test/test.js"></script>
+<script src="../test/testBuild.js"></script>
 <script>mocha.run()</script>
 </body>
 </html>
