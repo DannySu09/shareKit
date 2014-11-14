@@ -1,9 +1,8 @@
-;(function(exports){
+;(function(){
     var QRCode = require('qrcode');
-    console.log(QRCode);
     var SK = function(options){
         this.baseConf = this.setOptions(options);
-        this.device = detectDevice(navigator.userAgent);
+        this.device = this.detectDevice(navigator.userAgent);
         this.initEle(this.baseConf.prefix);
         this.bind(this.qzEle, this.qzoneFunc);
         this.bind(this.twEle, this.twitterFunc);
@@ -56,9 +55,6 @@
             windowConf += (key+'='+temp[key]+',');
         }
         windowConf = windowConf.slice(0,-1);
-        if(options.stub != null) {
-            return windowConf;
-        }
         window.open(title, url, windowConf);
     };
 
@@ -143,7 +139,37 @@
     };
 
 //    wechat share Handler
-    SK.prototype.wechatFunc = function(self){};
+    SK.prototype.wechatFunc = function(self){
+        var conf = self.baseConf;
+        var qrcode;
+        var wcCanvas;
+        var shareReady;
+        var wxObj;
+        if(self.device === 'phone') {
+            wxObj = {};
+            wxObj.title = conf.title;
+            wxObj.link = conf.link;
+            wxObj.desc = conf.desc;
+            wxObj.img_url = conf.portrait;
+            shareReady = function(){
+                WeixinJSBridge.on('menu:share:appmessage', function(){
+                    WeixinJSBridge.invoke('sendAppMessage', wxObj,function(){})
+                });
+                WeixinJSBridge.on('menu:share:timeline', function(){
+                    WeixinJSBridge.invoke('shareTimeline', wxObj, function(){});
+                });
+            };
+            if(typeof WeixinJSBridge === 'undefined') {
+                document.addEventListener('WeixinJSBridgeReady', shareReady);
+            } else {
+                shareReady();
+            }
+        } else if(self.device === 'pc') {
+            wcCanvas = self.wrapEle.getElementsByClassName('js-'+conf.prefix+'-wechat-QRCode')[0];
+            qrcode = new QRCode.QRCodeDraw();
+            qrcode.draw(wcCanvas, location.href, function(error, canvas){});
+        }
+    };
 
 //    make the base data
     SK.prototype.setOptions = function (options) {
@@ -174,6 +200,11 @@
         } else {
             baseConf.prefix = options.prefix;
         }
+        if(options.portrait == null) {
+            options.portrait = 'http://usualimages.qiniudn.com/1.jpeg';
+        } else {
+            baseConf.portrait = options.portrait;
+        }
         return baseConf;
     };
 
@@ -181,9 +212,18 @@
     SK.prototype.getOption = function(){
         var re = {};
         for(var key in this.baseConf) {
-            re[key] = this.base[key];
+            re[key] = this.baseConf[key];
         }
         return re;
+    };
+
+    // detect device type
+    SK.prototype.detectDevice = function(ua){
+        if(ua.match(/iphone|ipad|android/gi) != null) {
+            return 'phone';
+        } else {
+            return 'pc';
+        }
     };
 
     function findDesc(){
@@ -205,19 +245,6 @@
         }
         return url + '?' + s.join('&');
     };
-//    detect current device is pc or phone
-    var detectDevice = function(ua){
-        if(ua.match(/iphone|ipad|android/gi) != null) {
-            return 'phone';
-        } else {
-            return 'pc';
-        }
-    };
-    if(window.define != null) {
-        define(function(){
-            return SK;
-        });
-    } else {
-        exports.SK = SK;
-    }
-})(this);
+
+    module.exports = SK;
+})();
