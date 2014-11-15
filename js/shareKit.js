@@ -55,7 +55,7 @@
             windowConf += (key+'='+temp[key]+',');
         }
         windowConf = windowConf.slice(0,-1);
-        window.open(title, url, windowConf);
+        window.open(url, title, windowConf);
     };
 
     // qzone share handler

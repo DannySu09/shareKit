@@ -65,7 +65,7 @@ describe('Share Kit', function(){
                 expect(sk.baseConf.twitterName).to.equal(o.twitterName);
             });
         });
-        describe('SK Function Test', function(){
+        describe('SK init function Test', function(){
             var sk = new SK();
             it('Should have element and correct prefix', function(){
                 expect(sk.wrapEle.className.indexOf('js-'+sk.baseConf.prefix)).to.not.equal(-1);
@@ -96,6 +96,21 @@ describe('Share Kit', function(){
                 sk.qzEle.dispatchEvent(evt,true);
                 expect(st.callCount).to.equal(1);
                 st.restore();
+            });
+        });
+        describe('SK open window function test', function(){
+            it('Should open window with correct url, title, and props', function(){
+                SK.prototype.openWin({
+                    url: 'http://www.baidu.com',
+                    title: 'open baidu',
+                    scrollbars: 'no',
+                    menubar: 'no',
+                    status: 'no',
+                    height: 600,
+                    width: 900,
+                    left: 300,
+                    top: 0
+                });
             });
         });
         describe('The Qzone share function', function(){
