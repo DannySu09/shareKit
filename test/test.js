@@ -1,12 +1,9 @@
 var expect = chai.expect;
-var skObj = require('./shareKit.js');
-for(var k in skObj) {
-    window[k] = skObj[k];
-}
+var SK = require('../js/core.js');
 describe('Share Kit', function(){
     describe('Test Url Concat', function(){
         it('should return encode url', function(){
-            var src = urlConcat({
+            var src = SK.prototype.urlConcat({
                 a:'a',
                 b:'bb\/\/',
                 c: '123??%',
@@ -45,7 +42,7 @@ describe('Share Kit', function(){
                 expect(sk).to.not.be.an('undefined');
                 expect(sk.baseConf.title).to.equal(document.title);
                 expect(sk.baseConf.link).to.equal(location.href);
-                expect(sk.baseConf.desc).to.equal(findDesc());
+                expect(sk.baseConf.desc).to.equal(SK.prototype.findDesc());
                 expect(sk.baseConf.twitterName).to.be.an('undefined');
                 expect(sk.baseConf.prefix).to.equal('shareKit');
             });

@@ -74,7 +74,7 @@
             height:22
         };
         var link;
-        link = urlConcat(p, 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey');
+        link = self.urlConcat(p, 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey');
         self.openWin({
             url: link,
             title: 'Sharing to Qzone',
@@ -188,7 +188,7 @@
             baseConf.link = options.link;
         }
         if(options.desc == null) {
-            baseConf.desc = findDesc();
+            baseConf.desc = this.findDesc();
         } else {
             baseConf.desc = options.desc;
         }
@@ -226,7 +226,7 @@
         }
     };
 
-    function findDesc(){
+    SK.prototype.findDesc = function(){
         var metas = document.getElementsByTagName('meta');
         var meta;
         for(var i=0; i< metas.length; i++) {
@@ -238,7 +238,7 @@
     }
 
 //    concat url and query data
-    var urlConcat = function(o, url){
+    SK.prototype.urlConcat = function(o, url){
         var s = [];
         for(var i in o){
             s.push(i + '=' + encodeURIComponent(o[i]||''));
@@ -246,5 +246,6 @@
         return url + '?' + s.join('&');
     };
 
+//    for test
     module.exports = SK;
 })();
