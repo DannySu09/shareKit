@@ -80,10 +80,11 @@ describe('Share Kit', function(){
             });
         });
         describe('SK Constructor', function(){
-            it('Should the bind function be invoked 4 times', function(){
+            it('Should the bind function be invoked 3 times', function(){
+                // weibo-sharing function don't need to bind an event.
                 var spy = sinon.spy(SK.prototype, 'bind');
                 var sk = new SK();
-                expect(spy.callCount).to.equal(4);
+                expect(spy.callCount).to.equal(3);
             });
         });
         describe('SK elements\' event binding', function(){

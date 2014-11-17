@@ -6,7 +6,8 @@
         this.initEle(this.baseConf.prefix);
         this.bind(this.qzEle, this.qzoneFunc);
         this.bind(this.twEle, this.twitterFunc);
-        this.bind(this.wbEle, this.weiboFunc);
+        //this.bind(this.wbEle, this.weiboFunc);
+        this.weiboFunc(this);
         this.bind(this.wxEle, this.wechatFunc);
     };
     SK.prototype.initEle = function(prefix) {

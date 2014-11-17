@@ -7,7 +7,8 @@
         this.initEle(this.baseConf.prefix);
         this.bind(this.qzEle, this.qzoneFunc);
         this.bind(this.twEle, this.twitterFunc);
-        this.bind(this.wbEle, this.weiboFunc);
+        //this.bind(this.wbEle, this.weiboFunc);
+        this.weiboFunc(this);
         this.bind(this.wxEle, this.wechatFunc);
     };
     SK.prototype.initEle = function(prefix) {
@@ -2341,7 +2342,7 @@ function write_double_be(target, value, at) {
 
 module.exports = require('./lib/qrcode-draw.js');
 
-},{"./lib/qrcode-draw.js":"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/lib/qrcode-draw.js"}],"/Users/sunaiwen/projects/shareKit/test/test.js":[function(require,module,exports){
+},{"./lib/qrcode-draw.js":"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/lib/qrcode-draw.js"}],"/Users/sunaiwen/projects/shareKit/tests/test.js":[function(require,module,exports){
 var expect = chai.expect;
 var SK = require('../js/core.js');
 describe('Share Kit', function(){
@@ -2424,10 +2425,11 @@ describe('Share Kit', function(){
             });
         });
         describe('SK Constructor', function(){
-            it('Should the bind function be invoked 4 times', function(){
+            it('Should the bind function be invoked 3 times', function(){
+                // weibo-sharing function don't need to bind an event.
                 var spy = sinon.spy(SK.prototype, 'bind');
                 var sk = new SK();
-                expect(spy.callCount).to.equal(4);
+                expect(spy.callCount).to.equal(3);
             });
         });
         describe('SK elements\' event binding', function(){
@@ -2511,4 +2513,4 @@ describe('Share Kit', function(){
         });
     });
 });
-},{"../js/core.js":"/Users/sunaiwen/projects/shareKit/js/core.js"}]},{},["/Users/sunaiwen/projects/shareKit/test/test.js"]);
+},{"../js/core.js":"/Users/sunaiwen/projects/shareKit/js/core.js"}]},{},["/Users/sunaiwen/projects/shareKit/tests/test.js"]);
