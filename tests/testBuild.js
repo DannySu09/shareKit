@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/sunaiwen/projects/shareKit/js/core.js":[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 ;(function(){
     var QRCode = require('qrcode');
     var SK = function(options){
@@ -251,7 +251,7 @@
 //    for test
     module.exports = SK;
 })();
-},{"qrcode":"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/qrcodeclient.js"}],"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/lib/qrcapacitytable.js":[function(require,module,exports){
+},{"qrcode":18}],2:[function(require,module,exports){
 /**
 this contains the max string length for all qr code Versions in Binary Safe / Byte Mode
 each entry is in the order of error correct level
@@ -304,7 +304,7 @@ exports.QRCapacityTable = [
 ,[2953,2331,1663,1273]//40
 ];
 
-},{}],"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/lib/qrcode-draw.js":[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 /*
 * copyright 2010-2012 Ryan Day
 * http://github.com/soldair/node-qrcode
@@ -578,7 +578,7 @@ QRCodeDraw.prototype = {
 };
 
 
-},{"./qrcapacitytable.js":"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/lib/qrcapacitytable.js","./qrcode.js":"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/lib/qrcode.js","bops":"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/index.js"}],"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/lib/qrcode.js":[function(require,module,exports){
+},{"./qrcapacitytable.js":2,"./qrcode.js":4,"bops":5}],4:[function(require,module,exports){
 var bops = require('bops');
 
 /**
@@ -1749,7 +1749,7 @@ QRBitBuffer.prototype = {
 	}
 };
 
-},{"bops":"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/index.js"}],"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/index.js":[function(require,module,exports){
+},{"bops":5}],5:[function(require,module,exports){
 var proto = {}
 module.exports = proto
 
@@ -1770,7 +1770,7 @@ function mix(from, into) {
   }
 }
 
-},{"./copy.js":"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/typedarray/copy.js","./create.js":"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/typedarray/create.js","./from.js":"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/typedarray/from.js","./is.js":"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/typedarray/is.js","./join.js":"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/typedarray/join.js","./read.js":"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/typedarray/read.js","./subarray.js":"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/typedarray/subarray.js","./to.js":"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/typedarray/to.js","./write.js":"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/typedarray/write.js"}],"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/node_modules/base64-js/lib/b64.js":[function(require,module,exports){
+},{"./copy.js":8,"./create.js":9,"./from.js":10,"./is.js":11,"./join.js":12,"./read.js":14,"./subarray.js":15,"./to.js":16,"./write.js":17}],6:[function(require,module,exports){
 (function (exports) {
 	'use strict';
 
@@ -1856,7 +1856,7 @@ function mix(from, into) {
 	module.exports.fromByteArray = uint8ToBase64;
 }());
 
-},{}],"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/node_modules/to-utf8/index.js":[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 module.exports = to_utf8
 
 var out = []
@@ -1931,7 +1931,7 @@ function reduced(list) {
   return out
 }
 
-},{}],"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/typedarray/copy.js":[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 module.exports = copy
 
 var slice = [].slice
@@ -1985,12 +1985,12 @@ function slow_copy(from, to, j, i, jend) {
   }
 }
 
-},{}],"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/typedarray/create.js":[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 module.exports = function(size) {
   return new Uint8Array(size)
 }
 
-},{}],"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/typedarray/from.js":[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 module.exports = from
 
 var base64 = require('base64-js')
@@ -2050,13 +2050,13 @@ function from_base64(str) {
   return new Uint8Array(base64.toByteArray(str)) 
 }
 
-},{"base64-js":"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/node_modules/base64-js/lib/b64.js"}],"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/typedarray/is.js":[function(require,module,exports){
+},{"base64-js":6}],11:[function(require,module,exports){
 
 module.exports = function(buffer) {
   return buffer instanceof Uint8Array;
 }
 
-},{}],"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/typedarray/join.js":[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 module.exports = join
 
 function join(targets, hint) {
@@ -2094,7 +2094,7 @@ function get_length(targets) {
   return size
 }
 
-},{}],"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/typedarray/mapped.js":[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 var proto
   , map
 
@@ -2116,7 +2116,7 @@ function get(target) {
   return out
 }
 
-},{}],"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/typedarray/read.js":[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 module.exports = {
     readUInt8:      read_uint8
   , readInt8:       read_int8
@@ -2205,14 +2205,14 @@ function read_double_be(target, at) {
   return dv.getFloat64(at + target.byteOffset, false)
 }
 
-},{"./mapped.js":"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/typedarray/mapped.js"}],"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/typedarray/subarray.js":[function(require,module,exports){
+},{"./mapped.js":13}],15:[function(require,module,exports){
 module.exports = subarray
 
 function subarray(buf, from, to) {
   return buf.subarray(from || 0, to || buf.length)
 }
 
-},{}],"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/typedarray/to.js":[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 module.exports = to
 
 var base64 = require('base64-js')
@@ -2250,7 +2250,7 @@ function to_base64(buf) {
 }
 
 
-},{"base64-js":"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/node_modules/base64-js/lib/b64.js","to-utf8":"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/node_modules/to-utf8/index.js"}],"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/typedarray/write.js":[function(require,module,exports){
+},{"base64-js":6,"to-utf8":7}],17:[function(require,module,exports){
 module.exports = {
     writeUInt8:      write_uint8
   , writeInt8:       write_int8
@@ -2338,13 +2338,13 @@ function write_double_be(target, value, at) {
   return dv.setFloat64(at + target.byteOffset, value, false)
 }
 
-},{"./mapped.js":"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/node_modules/bops/typedarray/mapped.js"}],"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/qrcodeclient.js":[function(require,module,exports){
+},{"./mapped.js":13}],18:[function(require,module,exports){
 
 module.exports = require('./lib/qrcode-draw.js');
 
-},{"./lib/qrcode-draw.js":"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/lib/qrcode-draw.js"}],"/Users/sunaiwen/projects/shareKit/tests/test.js":[function(require,module,exports){
+},{"./lib/qrcode-draw.js":3}],19:[function(require,module,exports){
 var expect = chai.expect;
-var SK = require('../js/core.js');
+var SK = require('../js/shareKit.js');
 describe('Share Kit', function(){
     describe('Test Url Concat', function(){
         it('should return encode url', function(){
@@ -2513,4 +2513,4 @@ describe('Share Kit', function(){
         });
     });
 });
-},{"../js/core.js":"/Users/sunaiwen/projects/shareKit/js/core.js"}]},{},["/Users/sunaiwen/projects/shareKit/tests/test.js"]);
+},{"../js/shareKit.js":1}]},{},[19]);

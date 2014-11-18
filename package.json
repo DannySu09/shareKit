@@ -2,7 +2,7 @@
   "name": "shareKit",
   "version": "1.0.0",
   "description": "A share kit for twitter, weibo, wechat, qzone.",
-  "main": "index.js",
+  "main": "js/shareKit.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "jshint **/shareKit.js",
@@ -21,6 +21,9 @@
     "url": "https://github.com/sunaiwen/shareKit/issues"
   },
   "homepage": "https://github.com/sunaiwen/shareKit",
+  "dependency": {
+    "qrcode": "~0.2.12"
+  },
   "devDependencies": {
     "chai": "^1.9.2",
     "mocha": "^2.0.1",

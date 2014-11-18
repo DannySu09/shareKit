@@ -1,5 +1,5 @@
 var expect = chai.expect;
-var SK = require('../js/core.js');
+var SK = require('../js/shareKit.js');
 describe('Share Kit', function(){
     describe('Test Url Concat', function(){
         it('should return encode url', function(){

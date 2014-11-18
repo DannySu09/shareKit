@@ -1,4 +1,12 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+var SK = require('../js/shareKit.js');
+
+new SK({
+    title: 'share from github',
+    desc: 'As we all know ,the words shared from github.',
+    twitterName: 'sunaiwen'
+});
+},{"../js/shareKit.js":2}],2:[function(require,module,exports){
 ;(function(){
     var QRCode = require('qrcode');
     var SK = function(options){
@@ -251,7 +259,7 @@
 //    for test
     module.exports = SK;
 })();
-},{"qrcode":18}],2:[function(require,module,exports){
+},{"qrcode":19}],3:[function(require,module,exports){
 /**
 this contains the max string length for all qr code Versions in Binary Safe / Byte Mode
 each entry is in the order of error correct level
@@ -304,7 +312,7 @@ exports.QRCapacityTable = [
 ,[2953,2331,1663,1273]//40
 ];
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 /*
 * copyright 2010-2012 Ryan Day
 * http://github.com/soldair/node-qrcode
@@ -578,7 +586,7 @@ QRCodeDraw.prototype = {
 };
 
 
-},{"./qrcapacitytable.js":2,"./qrcode.js":4,"bops":5}],4:[function(require,module,exports){
+},{"./qrcapacitytable.js":3,"./qrcode.js":5,"bops":6}],5:[function(require,module,exports){
 var bops = require('bops');
 
 /**
@@ -1749,7 +1757,7 @@ QRBitBuffer.prototype = {
 	}
 };
 
-},{"bops":5}],5:[function(require,module,exports){
+},{"bops":6}],6:[function(require,module,exports){
 var proto = {}
 module.exports = proto
 
@@ -1770,7 +1778,7 @@ function mix(from, into) {
   }
 }
 
-},{"./copy.js":8,"./create.js":9,"./from.js":10,"./is.js":11,"./join.js":12,"./read.js":14,"./subarray.js":15,"./to.js":16,"./write.js":17}],6:[function(require,module,exports){
+},{"./copy.js":9,"./create.js":10,"./from.js":11,"./is.js":12,"./join.js":13,"./read.js":15,"./subarray.js":16,"./to.js":17,"./write.js":18}],7:[function(require,module,exports){
 (function (exports) {
 	'use strict';
 
@@ -1856,7 +1864,7 @@ function mix(from, into) {
 	module.exports.fromByteArray = uint8ToBase64;
 }());
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 module.exports = to_utf8
 
 var out = []
@@ -1931,7 +1939,7 @@ function reduced(list) {
   return out
 }
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 module.exports = copy
 
 var slice = [].slice
@@ -1985,12 +1993,12 @@ function slow_copy(from, to, j, i, jend) {
   }
 }
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 module.exports = function(size) {
   return new Uint8Array(size)
 }
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 module.exports = from
 
 var base64 = require('base64-js')
@@ -2050,13 +2058,13 @@ function from_base64(str) {
   return new Uint8Array(base64.toByteArray(str)) 
 }
 
-},{"base64-js":6}],11:[function(require,module,exports){
+},{"base64-js":7}],12:[function(require,module,exports){
 
 module.exports = function(buffer) {
   return buffer instanceof Uint8Array;
 }
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 module.exports = join
 
 function join(targets, hint) {
@@ -2094,7 +2102,7 @@ function get_length(targets) {
   return size
 }
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 var proto
   , map
 
@@ -2116,7 +2124,7 @@ function get(target) {
   return out
 }
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 module.exports = {
     readUInt8:      read_uint8
   , readInt8:       read_int8
@@ -2205,14 +2213,14 @@ function read_double_be(target, at) {
   return dv.getFloat64(at + target.byteOffset, false)
 }
 
-},{"./mapped.js":13}],15:[function(require,module,exports){
+},{"./mapped.js":14}],16:[function(require,module,exports){
 module.exports = subarray
 
 function subarray(buf, from, to) {
   return buf.subarray(from || 0, to || buf.length)
 }
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 module.exports = to
 
 var base64 = require('base64-js')
@@ -2250,7 +2258,7 @@ function to_base64(buf) {
 }
 
 
-},{"base64-js":6,"to-utf8":7}],17:[function(require,module,exports){
+},{"base64-js":7,"to-utf8":8}],18:[function(require,module,exports){
 module.exports = {
     writeUInt8:      write_uint8
   , writeInt8:       write_int8
@@ -2338,8 +2346,8 @@ function write_double_be(target, value, at) {
   return dv.setFloat64(at + target.byteOffset, value, false)
 }
 
-},{"./mapped.js":13}],18:[function(require,module,exports){
+},{"./mapped.js":14}],19:[function(require,module,exports){
 
 module.exports = require('./lib/qrcode-draw.js');
 
-},{"./lib/qrcode-draw.js":3}]},{},[1]);
+},{"./lib/qrcode-draw.js":4}]},{},[1]);
