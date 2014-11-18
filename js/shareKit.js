@@ -123,7 +123,7 @@
             countUrl: conf.link,
             via: conf.twitterName || ''
         };
-        shareUrl = urlConcat(shareObj, shareUrl);
+        shareUrl = self.urlConcat(shareObj, shareUrl);
         conf.title = 'Sharing to Twitter';
         self.openWin({
             url: shareUrl,
