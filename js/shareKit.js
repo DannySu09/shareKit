@@ -1,5 +1,5 @@
 ;(function(){
-    var QRCode = require('qrcode');
+    var QRCode = require('qrcode/qrcodeclient.js');
     var SK = function(options){
         this.baseConf = this.setOptions(options);
         this.device = this.detectDevice(navigator.userAgent);
@@ -123,7 +123,7 @@
             countUrl: conf.link,
             via: conf.twitterName || ''
         };
-        shareUrl = urlConcat(shareObj, shareUrl);
+        shareUrl = self.urlConcat(shareObj, shareUrl);
         conf.title = 'Sharing to Twitter';
         self.openWin({
             url: shareUrl,
