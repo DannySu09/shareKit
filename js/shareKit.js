@@ -1,5 +1,5 @@
 ;(function(){
-    var QRCode = require('qrcode');
+    var QRCode = require('qrcode/qrcodeclient.js');
     var SK = function(options){
         this.baseConf = this.setOptions(options);
         this.device = this.detectDevice(navigator.userAgent);
