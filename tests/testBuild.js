@@ -1,6 +1,6 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/sunaiwen/projects/shareKit/js/shareKit.js":[function(require,module,exports){
 ;(function(){
-    var QRCode = require('qrcode');
+    var QRCode = require('qrcode/qrcodeclient.js');
     var SK = function(options){
         this.baseConf = this.setOptions(options);
         this.device = this.detectDevice(navigator.userAgent);
@@ -251,7 +251,7 @@
 //    for test
     module.exports = SK;
 })();
-},{"qrcode":18}],2:[function(require,module,exports){
+},{"qrcode/qrcodeclient.js":"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/qrcodeclient.js"}],"/Users/sunaiwen/projects/shareKit/node_modules/qrcode/lib/qrcapacitytable.js":[function(require,module,exports){
 /**
 this contains the max string length for all qr code Versions in Binary Safe / Byte Mode
 each entry is in the order of error correct level
@@ -2513,4 +2513,4 @@ describe('Share Kit', function(){
         });
     });
 });
-},{"../js/shareKit.js":1}]},{},[19]);
+},{"../js/shareKit.js":"/Users/sunaiwen/projects/shareKit/js/shareKit.js"}]},{},["/Users/sunaiwen/projects/shareKit/tests/test.js"]);
