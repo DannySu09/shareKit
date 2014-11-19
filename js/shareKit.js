@@ -6,16 +6,24 @@
         this.initEle(this.baseConf.prefix);
         this.bind(this.qzEle, this.qzoneFunc);
         this.bind(this.twEle, this.twitterFunc);
-        //this.bind(this.wbEle, this.weiboFunc);
-        this.weiboFunc(this);
         this.bind(this.wxEle, this.wechatFunc);
     };
     SK.prototype.initEle = function(prefix) {
+        var self = this;
         this.wrapEle = document.getElementsByClassName('js-'+prefix)[0];
         this.qzEle = this.wrapEle.getElementsByClassName('js-'+prefix+'-qzone')[0];
         this.wbEle = this.wrapEle.getElementsByClassName('js-'+prefix+'-weibo')[0];
         this.twEle = this.wrapEle.getElementsByClassName('js-'+prefix+'-twitter')[0];
         this.wxEle = this.wrapEle.getElementsByClassName('js-'+prefix+'-wechat')[0];
+
+    //    init weibo script
+        var wbScript = document.createElement('script');
+        wbScript.src = 'http://tjs.sjs.sinajs.cn/open/api/js/wb.js';
+        wbScript.charset = 'utf-8';
+        document.body.appendChild(wbScript);
+        wbScript.onload = function(){
+            self.weiboFunc(self);
+        };
     };
 
     SK.prototype.bind = function(ele, handler){
