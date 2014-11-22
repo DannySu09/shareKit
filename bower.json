@@ -1,0 +1,22 @@
+{
+  "name": "shareKit",
+  "version": "1.0.0",
+  "homepage": "https://github.com/sunaiwen/shareKit",
+  "authors": [
+    "sunaiwen"
+  ],
+  "description": "A share tool for my blog",
+  "main": "js/shareKit.js",
+  "keywords": [
+    "share"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {}
+}
