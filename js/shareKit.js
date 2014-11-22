@@ -1,21 +1,29 @@
 ;(function(){
-    var QRCode = require('qrcode/qrcodeclient.js');
+    var QRCode = require('qrcode');
     var SK = function(options){
         this.baseConf = this.setOptions(options);
         this.device = this.detectDevice(navigator.userAgent);
         this.initEle(this.baseConf.prefix);
         this.bind(this.qzEle, this.qzoneFunc);
         this.bind(this.twEle, this.twitterFunc);
-        //this.bind(this.wbEle, this.weiboFunc);
-        this.weiboFunc(this);
         this.bind(this.wxEle, this.wechatFunc);
     };
     SK.prototype.initEle = function(prefix) {
+        var self = this;
         this.wrapEle = document.getElementsByClassName('js-'+prefix)[0];
         this.qzEle = this.wrapEle.getElementsByClassName('js-'+prefix+'-qzone')[0];
         this.wbEle = this.wrapEle.getElementsByClassName('js-'+prefix+'-weibo')[0];
         this.twEle = this.wrapEle.getElementsByClassName('js-'+prefix+'-twitter')[0];
         this.wxEle = this.wrapEle.getElementsByClassName('js-'+prefix+'-wechat')[0];
+
+    //    init weibo script
+        var wbScript = document.createElement('script');
+        wbScript.src = 'http://tjs.sjs.sinajs.cn/open/api/js/wb.js';
+        wbScript.charset = 'utf-8';
+        document.body.appendChild(wbScript);
+        wbScript.onload = function(){
+            self.weiboFunc(self);
+        };
     };
 
     SK.prototype.bind = function(ele, handler){
@@ -142,8 +150,6 @@
 //    wechat share Handler
     SK.prototype.wechatFunc = function(self){
         var conf = self.baseConf;
-        var qrcode;
-        var wcCanvas;
         var shareReady;
         var wxObj;
         if(self.device === 'phone') {
@@ -166,9 +172,25 @@
                 shareReady();
             }
         } else if(self.device === 'pc') {
-            wcCanvas = self.wrapEle.getElementsByClassName('js-'+conf.prefix+'-wechat-QRCode')[0];
-            qrcode = new QRCode.QRCodeDraw();
-            qrcode.draw(wcCanvas, location.href, function(error, canvas){});
+            if(self.wxEle.qrcode == null) {
+                self.wxEle.qrcode = qrcodeEle = document.getElementsByClassName('js-'+self.baseConf.prefix+'-wechat-QRCode')[0];
+                self.wxEle.qrcode = new QRCode(qrcodeEle, {
+                    text: location.href,
+                    width: 204,
+                    height: 204,
+                    colorDark: '#000000',
+                    colorLight: '#ffffff'
+                });
+            }
+            qrcodeEle.onclick = function(){
+                this.style.display = 'none';
+            };
+
+            self.wxEle.addEventListener('click', function(){
+                if(qrcodeEle.style.display === 'none') {
+                    qrcodeEle.style.display = 'block';
+                }
+            });
         }
     };
 
