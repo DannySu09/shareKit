@@ -17,17 +17,18 @@ describe('Share Kit', function(){
         });
     });
 
-    describe('Device Detecting', function(){
-        it('should device detection getting right', function(){
-            var ua_1 = 'Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30';
-            var ua_2 = 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36';
-            var ua_3 = 'Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25';
-            var re_1 = SK.prototype.detectDevice(ua_1);
-            var re_2 = SK.prototype.detectDevice(ua_2);
-            var re_3 = SK.prototype.detectDevice(ua_3);
-            expect(re_1).to.equal('phone');
-            expect(re_2).to.equal('pc');
-            expect(re_3).to.equal('phone');
+    describe('resource detect', function(){
+        it('should detect url has frompc query string or not ', function(){
+            var url = location.href;
+            var index = url.indexOf('?');
+            if(index > -1) {
+                url = url.slice(0, index);
+            }
+            var re = SK.prototype.detectFrom(url+'?frompc=true');
+            expect(re).to.equal(true);
+
+            re = SK.prototype.detectFrom(url);
+            expect(re).to.equal(false);
         });
     });
     describe('SK Object', function(){
@@ -80,11 +81,11 @@ describe('Share Kit', function(){
             });
         });
         describe('SK Constructor', function(){
-            it('Should the bind function be invoked 3 times', function(){
+            it('Should the bind function be invoked 2 times', function(){
                 // weibo-sharing function don't need to bind an event.
                 var spy = sinon.spy(SK.prototype, 'bind');
                 var sk = new SK();
-                expect(spy.callCount).to.equal(3);
+                expect(spy.callCount).to.equal(2);
             });
         });
         describe('SK elements\' event binding', function(){
