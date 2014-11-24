@@ -69,23 +69,17 @@ describe('Share Kit', function(){
                 expect(sk.wrapEle.className.indexOf('js-'+sk.baseConf.prefix)).to.not.equal(-1);
                 expect(sk.qzEle.className.indexOf('js-'+sk.baseConf.prefix+'-qzone')).to.not.equal(-1);
             });
-            it('Should bind a event correctly', function(done){
+            it('Should bind an event correctly', function(done){
                 var r = false;
                 var handler = function(){
                     r = 'fire';
                     expect(r).to.equal('fire');
+                    SK.prototype.qzoneFunc = temp;
                     done();
                 };
-                sk.bind(sk.qzEle, handler);
+                var temp = SK.prototype.qzoneFunc;
+                SK.prototype.qzoneFunc = handler;
                 sk.qzEle.dispatchEvent(evt, true);
-            });
-        });
-        describe('SK Constructor', function(){
-            it('Should the bind function be invoked 2 times', function(){
-                // weibo-sharing function don't need to bind an event.
-                var spy = sinon.spy(SK.prototype, 'bind');
-                var sk = new SK();
-                expect(spy.callCount).to.equal(2);
             });
         });
         describe('SK elements\' event binding', function(){
