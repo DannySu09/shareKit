@@ -11,11 +11,11 @@ new SK({
     var QRCode = require('qrcode');
     var SK = function(options){
         this.baseConf = this.setOptions(options);
-        this.device = this.detectDevice(navigator.userAgent);
+        this.isFromPC = this.detectFrom(location.href);
         this.initEle(this.baseConf.prefix);
         this.bind(this.qzEle, this.qzoneFunc);
         this.bind(this.twEle, this.twitterFunc);
-        this.bind(this.wxEle, this.wechatFunc);
+        this.wechatFunc(this);
     };
     SK.prototype.initEle = function(prefix) {
         var self = this;
@@ -161,7 +161,9 @@ new SK({
         var conf = self.baseConf;
         var shareReady;
         var wxObj;
-        if(self.device === 'phone') {
+        var qrcodeEle;
+        var qStr;
+        if(self.isFromPC === true) {
             wxObj = {};
             wxObj.title = conf.title;
             wxObj.link = conf.link;
@@ -180,26 +182,34 @@ new SK({
             } else {
                 shareReady();
             }
-        } else if(self.device === 'pc') {
+        } else if(self.isFromPC === false) {
+            qStr = location.href;
+            if(qStr.indexOf('?') > -1) {
+                qStr += '&frompc=true';
+            } else {
+                qStr += '?frompc=true';
+            }
             if(self.wxEle.qrcode == null) {
                 self.wxEle.qrcode = qrcodeEle = document.getElementsByClassName('js-'+self.baseConf.prefix+'-wechat-QRCode')[0];
+                qrcodeEle.style.display = 'none';
                 self.wxEle.qrcode = new QRCode(qrcodeEle, {
-                    text: location.href,
+                    text: qStr,
                     width: 204,
                     height: 204,
                     colorDark: '#000000',
                     colorLight: '#ffffff'
                 });
-            }
-            qrcodeEle.onclick = function(){
-                this.style.display = 'none';
-            };
 
-            self.wxEle.addEventListener('click', function(){
-                if(qrcodeEle.style.display === 'none') {
-                    qrcodeEle.style.display = 'block';
-                }
-            });
+                qrcodeEle.onclick = function(){
+                    this.style.display = 'none';
+                };
+                self.wxEle.onclick = null;
+                self.wxEle.addEventListener('click', function(){
+                    if(qrcodeEle.style.display === 'none') {
+                        qrcodeEle.style.display = 'block';
+                    }
+                });
+            }
         }
     };
 
@@ -250,12 +260,22 @@ new SK({
     };
 
     // detect device type
-    SK.prototype.detectDevice = function(ua){
-        if(ua.match(/iphone|ipad|android/gi) != null) {
-            return 'phone';
+    SK.prototype.detectFrom = function(url){
+        var anchor = document.createElement('a');
+        anchor.href = url;
+        var qStr = anchor.search.slice(1);
+        var qArr = null;
+        if(qStr.indexOf('frompc') > -1) {
+            qArr = qStr.split('&');
+            for(var i = 0, len = qArr.length; i < len; i++){
+                if(qArr[i].indexOf('frompc') > -1) {
+                    return qArr[i].split('=')[1] === 'true';
+                }
+            }
         } else {
-            return 'pc';
+            return false;
         }
+
     };
 
     SK.prototype.findDesc = function(){
