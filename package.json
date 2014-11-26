@@ -2,7 +2,7 @@
   "name": "shareKit",
   "version": "1.0.0",
   "description": "A share kit for twitter, weibo, wechat, qzone.",
-  "main": "index.js",
+  "main": "./js/shareKit.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "jshint **/shareKit.js",
