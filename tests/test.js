@@ -51,7 +51,7 @@ describe('Share Kit', function(){
                 var o = {
                     title: 'title',
                     link: 'http://baidu.com',
-                    desc: 'Today isn\' another day.',
+                    desc: 'Today isn\'t another day.',
                     twitterName: 'sunaiwen'
                     //prefix: 'yoyoyo'
                 };
@@ -69,18 +69,6 @@ describe('Share Kit', function(){
                 expect(sk.wrapEle.className.indexOf('js-'+sk.baseConf.prefix)).to.not.equal(-1);
                 expect(sk.qzEle.className.indexOf('js-'+sk.baseConf.prefix+'-qzone')).to.not.equal(-1);
             });
-            it('Should bind an event correctly', function(done){
-                var r = false;
-                var handler = function(){
-                    r = 'fire';
-                    expect(r).to.equal('fire');
-                    SK.prototype.qzoneFunc = temp;
-                    done();
-                };
-                var temp = SK.prototype.qzoneFunc;
-                SK.prototype.qzoneFunc = handler;
-                sk.qzEle.dispatchEvent(evt, true);
-            });
         });
         describe('SK elements\' event binding', function(){
             it('Should handler be fired', function(){
@@ -89,6 +77,20 @@ describe('Share Kit', function(){
                 sk.qzEle.dispatchEvent(evt,true);
                 expect(st.callCount).to.equal(1);
                 st.restore();
+            });
+
+            it('Should bind an event correctly', function(done){
+                var tr = 'empty';
+                var st = sinon.stub(SK.prototype, 'twitterFunc', function(){
+                    tr = 'twitter fire';
+                    expect(tr).to.equal('twitter fire');
+                    st.restore();
+                    setTimeout(function(){
+                        done();
+                    }, 200);
+                });
+                var sk = new SK();
+                sk.twEle.dispatchEvent(evt, true);
             });
         });
         describe('SK open window function test', function(){
