@@ -35,17 +35,6 @@ SK.prototype.bind = function(element, handler){
         e.preventDefault();
         handler(self);
     };
-    //this.wrapEle.onclick = function(e){
-    //    // todo: 如果 js-shareKit-qzone (twitter) 元素下面还有子元素，而事件是从这些子元素上冒泡上来的，如果只是有一层子元素，那还好判断，如果有多层呢？怎么判断事件在其元素范围内触发了呢？
-    //    var className = e.target.className;
-    //    var parentClassName = e.target.parentNode.className;
-    //    e.preventDefault();
-    //    if(className.indexOf('qzone') > -1 || parentClassName.indexOf('qzone')) {
-    //        self.qzoneFunc(self);
-    //    } else if(className.indexOf('twitter') > -1 || parentClassName.indexOf('twitter')) {
-    //        self.twitterFunc(self);
-    //    }
-    //}
 };
 
 SK.prototype.openWin = function(options){
