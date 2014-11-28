@@ -5,15 +5,18 @@ var SK = function(options){
     this.isFromPC = this.detectFrom(location.href);
     this.initEle(this.baseConf.prefix);
     this.wechatFunc(this);
-    this.bind();
 };
 SK.prototype.initEle = function(prefix) {
     var self = this;
     this.wrapEle = doc.getElementsByClassName('js-'+prefix)[0];
-    this.qzEle = this.wrapEle.getElementsByClassName('js-'+prefix+'-qzone')[0];
     this.wbEle = this.wrapEle.getElementsByClassName('js-'+prefix+'-weibo')[0];
-    this.twEle = this.wrapEle.getElementsByClassName('js-'+prefix+'-twitter')[0];
     this.wxEle = this.wrapEle.getElementsByClassName('js-'+prefix+'-wechat')[0];
+    this.qzEle = this.wrapEle.getElementsByClassName('js-'+prefix+'-qzone')[0];
+    this.twEle = this.wrapEle.getElementsByClassName('js-'+prefix+'-twitter')[0];
+
+    //    bind event
+    this.bind(this.qzEle, this.qzoneFunc);
+    this.bind(this.twEle, this.twitterFunc);
 
     //    init weibo script
     var wbScript = doc.createElement('script');
@@ -25,17 +28,23 @@ SK.prototype.initEle = function(prefix) {
     };
 };
 
-SK.prototype.bind = function(){
+SK.prototype.bind = function(element, handler){
     var self = this;
-    this.wrapEle.onclick = function(e){
-        var className = e.target.className;
+    element.onclick  = function(e){
         e.preventDefault();
-        if(className.indexOf('qzone') > -1) {
-            self.qzoneFunc(self);
-        } else if(className.indexOf('twitter') > -1) {
-            self.twitterFunc(self);
-        }
-    }
+        handler(self);
+    };
+    //this.wrapEle.onclick = function(e){
+    //    // todo: 如果 js-shareKit-qzone (twitter) 元素下面还有子元素，而事件是从这些子元素上冒泡上来的，如果只是有一层子元素，那还好判断，如果有多层呢？怎么判断事件在其元素范围内触发了呢？
+    //    var className = e.target.className;
+    //    var parentClassName = e.target.parentNode.className;
+    //    e.preventDefault();
+    //    if(className.indexOf('qzone') > -1 || parentClassName.indexOf('qzone')) {
+    //        self.qzoneFunc(self);
+    //    } else if(className.indexOf('twitter') > -1 || parentClassName.indexOf('twitter')) {
+    //        self.twitterFunc(self);
+    //    }
+    //}
 };
 
 SK.prototype.openWin = function(options){
