@@ -13,6 +13,6 @@ module.exports = function(config){
             'tests/karma.html':['html2js']
         },
         frameworks: ['mocha'],
-        browsers: ['Chrome', 'Firefox', 'PhantomJS']
+        browsers: ['PhantomJS']
     });
 };
