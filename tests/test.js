@@ -1,5 +1,7 @@
 var expect = chai.expect;
 var SK = require('../js/shareKit.js');
+// for karma
+document.body.innerHTML = window.__html__['tests/karma.html'];
 describe('Share Kit', function(){
     describe('Test Url Concat', function(){
         it('should return encode url', function(){
