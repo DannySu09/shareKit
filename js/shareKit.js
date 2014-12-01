@@ -113,9 +113,11 @@ SK.prototype.weiboFunc = function(self){
             language:'zh_cn',
             button_type:'red',
             button_size:'middle',
-            appkey:'3125265748',
             id: 'wb_publish',
-            uid: '1624118717',
+            appkey: conf.wbOption.appkey || '',
+            uid: conf.wbOption.appkey || '',
+            //appkey:'3125265748',
+            //uid: '1624118717',
             default_text: defaultText
         });
     });
@@ -238,6 +240,17 @@ SK.prototype.setOptions = function (options) {
     } else {
         baseConf.portrait = options.portrait;
     }
+    if(typeof options.wbOption === 'object') {
+        baseConf.wbOption = {
+            uid: options.wbOption.uid,
+            appkey: options.wbOption.appkey
+        }
+    } else {
+        baseConf.wbOption = {
+            uid: '',
+            appkey: ''
+        }
+    }
     return baseConf;
 };
 
@@ -289,5 +302,5 @@ SK.prototype.urlConcat = function(o, url){
     return url + '?' + s.join('&');
 };
 
-//    for test
+// exports
 module.exports = SK;

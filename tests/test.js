@@ -1,7 +1,7 @@
 var expect = chai.expect;
 var SK = require('../js/shareKit.js');
 // for karma
-document.body.innerHTML = window.__html__['tests/karma.html'];
+//document.body.innerHTML = window.__html__['tests/karma.html'];
 describe('Share Kit', function(){
     describe('Test Url Concat', function(){
         it('should return encode url', function(){
@@ -48,13 +48,21 @@ describe('Share Kit', function(){
                 expect(sk.baseConf.desc).to.equal(SK.prototype.findDesc());
                 expect(sk.baseConf.twitterName).to.be.an('undefined');
                 expect(sk.baseConf.prefix).to.equal('shareKit');
+
+                expect(sk.baseConf.wbOption).to.not.equal(undefined);
+                expect(sk.baseConf.wbOption.appkey).to.equal('');
+                expect(sk.baseConf.wbOption.uid).to.equal('');
             });
             it('Should object with configuration has some options', function(){
                 var o = {
                     title: 'title',
                     link: 'http://baidu.com',
                     desc: 'Today isn\'t another day.',
-                    twitterName: 'sunaiwen'
+                    twitterName: 'sunaiwen',
+                    wbOption: {
+                        appkey: '3125265748',
+                        uid: '1624118717'
+                    }
                     //prefix: 'yoyoyo'
                 };
                 var sk = new SK(o);
@@ -63,6 +71,9 @@ describe('Share Kit', function(){
                 expect(sk.baseConf.link).to.equal(o.link);
                 expect(sk.baseConf.desc).to.equal(o.desc);
                 expect(sk.baseConf.twitterName).to.equal(o.twitterName);
+                expect(sk.baseConf.wbOption).to.not.equal(undefined);
+                expect(sk.baseConf.wbOption.appkey).to.equal('3125265748');
+                expect(sk.baseConf.wbOption.uid).to.equal('1624118717');
             });
         });
         describe('SK init function Test', function(){
