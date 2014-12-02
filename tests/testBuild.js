@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/sunaiwen/projects/shareKit/js/shareKit.js":[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var QRCode = require('qrcode');
 var doc = window.document;
 var SK = function(options){
@@ -186,7 +186,7 @@ SK.prototype.wechatFunc = function(self){
         wxObj.img_url = conf.portrait;
 
         WeixinJSBridge.on('menu:share:appmessage', function(){
-            WeixinJSBridge.invoke('sendAppMessage', wxObj,function(){})
+            WeixinJSBridge.invoke('sendAppMessage', wxObj,function(){});
         });
         WeixinJSBridge.on('menu:share:timeline', function(){
             WeixinJSBridge.invoke('shareTimeline', wxObj, function(){});
@@ -194,12 +194,13 @@ SK.prototype.wechatFunc = function(self){
         self.wxEle.onclick = function(){
             alert('点击右上角「分享按钮」分享给你的朋友们吧！');
         };
+
         qrcodeEle.parentNode.removeChild(qrcodeEle);
     };
 
     if(typeof WeixinJSBridge === 'undefined') {
         doc.addEventListener('WeixinJSBridgeReady', shareReady);
-    } else if(typeof WeixinJSBridge === 'object') {
+    } else {
         shareReady();
     }
 };
@@ -234,7 +235,7 @@ SK.prototype.setOptions = function (options) {
         baseConf.prefix = options.prefix;
     }
     if(typeof options.portrait === 'undefined') {
-        options.portrait = 'http://usualimages.qiniudn.com/1.jpeg';
+        baseConf.portrait = 'http://usualimages.qiniudn.com/1.jpeg';
     } else {
         baseConf.portrait = options.portrait;
     }
@@ -283,7 +284,7 @@ SK.prototype.urlConcat = function(o, url){
 
 // exports
 module.exports = SK;
-},{"qrcode":"/Users/sunaiwen/projects/shareKit/modules/qrcodejs/qrcode.js"}],"/Users/sunaiwen/projects/shareKit/modules/qrcodejs/qrcode.js":[function(require,module,exports){
+},{"qrcode":2}],2:[function(require,module,exports){
 (function (global){
 ;__browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 /**
@@ -906,11 +907,11 @@ var QRCode;
 }).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],"/Users/sunaiwen/projects/shareKit/tests/test.js":[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 var expect = chai.expect;
 var SK = require('../js/shareKit.js');
 // for karma
-//document.body.innerHTML = window.__html__['tests/karma.html'];
+document.body.innerHTML = window.__html__['tests/karma.html'];
 describe('Share Kit', function(){
     describe('Test Url Concat', function(){
         it('should return encode url', function(){
@@ -1049,7 +1050,7 @@ describe('Share Kit', function(){
             });
         });
         describe('The wechat share function', function(){
-            it('Should show qrcode when in pc env', function(){
+            it('Should show qrcode when outside wechat env', function(){
                 var sk = new SK({
                     link: location.href
                 });
@@ -1058,4 +1059,4 @@ describe('Share Kit', function(){
         });
     });
 });
-},{"../js/shareKit.js":"/Users/sunaiwen/projects/shareKit/js/shareKit.js"}]},{},["/Users/sunaiwen/projects/shareKit/tests/test.js"]);
+},{"../js/shareKit.js":1}]},{},[3]);
