@@ -2,9 +2,9 @@
   "name": "shareKit",
   "version": "1.0.0",
   "description": "A share kit for twitter, weibo, wechat, qzone.",
-  "main": "js/shareKit.js",
+  "main": "./js/shareKit.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "./node_modules/karma/bin/karma start karma.conf.js --single-run",
     "lint": "jshint **/shareKit.js",
     "lint:checkstyle": "npm run lint -- --reporter checkstyle > checkstyle.xml"
   },
@@ -26,17 +26,21 @@
   },
   "devDependencies": {
     "chai": "^1.9.2",
+    "karma": "^0.12.28",
+    "karma-html2js-preprocessor": "^0.1.0",
+    "karma-mocha": "^0.1.9",
+    "karma-phantomjs-launcher": "^0.1.4",
     "mocha": "^2.0.1",
     "sinon": "^1.11.1"
   },
   "dependencies": {},
-  "browser":{
-    "qrcode":"./modules/qrcodejs/qrcode.js"
+  "browser": {
+    "qrcode": "./modules/qrcodejs/qrcode.js"
   },
-  "browserify":{
-    "transform":"browserify-shim"
+  "browserify": {
+    "transform": "browserify-shim"
   },
-  "browserify-shim":{
-    "qrcode":"QRCode"
+  "browserify-shim": {
+    "qrcode": "QRCode"
   }
 }
