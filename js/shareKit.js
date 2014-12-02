@@ -2,7 +2,7 @@ var QRCode = require('qrcode');
 var doc = window.document;
 var SK = function(options){
     this.baseConf = this.setOptions(options);
-    this.isFromPC = this.detectFrom(location.href);
+    //this.isFromPC = this.detectFrom(location.href);
     this.initEle(this.baseConf.prefix);
     this.wechatFunc(this);
 };
@@ -152,57 +152,55 @@ SK.prototype.twitterFunc = function(self){
 //    wechat share Handler
 SK.prototype.wechatFunc = function(self){
     var conf = self.baseConf;
-    var shareReady;
-    var wxObj;
-    var qrcodeEle;
-    var qStr;
-    if(self.isFromPC === true) {
+    var wxObj = null;
+    var qrcodeEle = null;
+
+    if(typeof self.wxEle.qrcode === 'undefined') {
+        self.wxEle.qrcode = qrcodeEle = doc.getElementsByClassName('js-'+self.baseConf.prefix+'-wechat-QRCode')[0];
+        qrcodeEle.style.display = 'none';
+        new QRCode(qrcodeEle, {
+            text: conf.link,
+            width: 204,
+            height: 204,
+            colorDark: '#000000',
+            colorLight: '#ffffff'
+        });
+
+        qrcodeEle.onclick = function(){
+            this.style.display = 'none';
+        };
+        self.wxEle.onclick = null;
+        self.wxEle.onclick = function(){
+            if(qrcodeEle.style.display === 'none') {
+                qrcodeEle.style.display = 'block';
+            }
+        };
+    }
+
+    var shareReady =function(){
         wxObj = {};
         wxObj.title = conf.title;
         wxObj.link = conf.link;
         wxObj.desc = conf.desc;
         wxObj.img_url = conf.portrait;
-        shareReady = function(){
-            WeixinJSBridge.on('menu:share:appmessage', function(){
-                WeixinJSBridge.invoke('sendAppMessage', wxObj,function(){})
-            });
-            WeixinJSBridge.on('menu:share:timeline', function(){
-                WeixinJSBridge.invoke('shareTimeline', wxObj, function(){});
-            });
-        };
-        if(typeof WeixinJSBridge === 'undefined') {
-            doc.addEventListener('WeixinJSBridgeReady', shareReady);
-        } else {
-            shareReady();
-        }
-    } else if(self.isFromPC === false) {
-        qStr = location.href;
-        if(qStr.indexOf('?') > -1) {
-            qStr += '&frompc=true';
-        } else {
-            qStr += '?frompc=true';
-        }
-        if(self.wxEle.qrcode == null) {
-            self.wxEle.qrcode = qrcodeEle = doc.getElementsByClassName('js-'+self.baseConf.prefix+'-wechat-QRCode')[0];
-            qrcodeEle.style.display = 'none';
-            self.wxEle.qrcode = new QRCode(qrcodeEle, {
-                text: qStr,
-                width: 204,
-                height: 204,
-                colorDark: '#000000',
-                colorLight: '#ffffff'
-            });
 
-            qrcodeEle.onclick = function(){
-                this.style.display = 'none';
-            };
-            self.wxEle.onclick = null;
-            self.wxEle.addEventListener('click', function(){
-                if(qrcodeEle.style.display === 'none') {
-                    qrcodeEle.style.display = 'block';
-                }
-            });
-        }
+        WeixinJSBridge.on('menu:share:appmessage', function(){
+            WeixinJSBridge.invoke('sendAppMessage', wxObj,function(){});
+        });
+        WeixinJSBridge.on('menu:share:timeline', function(){
+            WeixinJSBridge.invoke('shareTimeline', wxObj, function(){});
+        });
+        self.wxEle.onclick = function(){
+            alert('点击右上角「分享按钮」分享给你的朋友们吧！');
+        };
+
+        qrcodeEle.parentNode.removeChild(qrcodeEle);
+    };
+
+    if(typeof WeixinJSBridge === 'undefined') {
+        doc.addEventListener('WeixinJSBridgeReady', shareReady);
+    } else {
+        shareReady();
     }
 };
 
@@ -236,7 +234,7 @@ SK.prototype.setOptions = function (options) {
         baseConf.prefix = options.prefix;
     }
     if(typeof options.portrait === 'undefined') {
-        options.portrait = 'http://usualimages.qiniudn.com/1.jpeg';
+        baseConf.portrait = 'http://usualimages.qiniudn.com/1.jpeg';
     } else {
         baseConf.portrait = options.portrait;
     }
@@ -261,25 +259,6 @@ SK.prototype.getOption = function(){
         re[key] = this.baseConf[key];
     }
     return re;
-};
-
-// detect device type
-SK.prototype.detectFrom = function(url){
-    var anchor = doc.createElement('a');
-    anchor.href = url;
-    var qStr = anchor.search.slice(1);
-    var qArr = null;
-    if(qStr.indexOf('frompc') > -1) {
-        qArr = qStr.split('&');
-        for(var i = 0, len = qArr.length; i < len; i++){
-            if(qArr[i].indexOf('frompc') > -1) {
-                return qArr[i].split('=')[1] === 'true';
-            }
-        }
-    } else {
-        return false;
-    }
-
 };
 
 SK.prototype.findDesc = function(){

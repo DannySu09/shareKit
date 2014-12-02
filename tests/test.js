@@ -19,20 +19,6 @@ describe('Share Kit', function(){
         });
     });
 
-    describe('resource detect', function(){
-        it('should detect url has frompc query string or not ', function(){
-            var url = location.href;
-            var index = url.indexOf('?');
-            if(index > -1) {
-                url = url.slice(0, index);
-            }
-            var re = SK.prototype.detectFrom(url+'?frompc=true');
-            expect(re).to.equal(true);
-
-            re = SK.prototype.detectFrom(url);
-            expect(re).to.equal(false);
-        });
-    });
     describe('SK Object', function(){
         var evt;
         beforeEach(function(){
@@ -63,7 +49,6 @@ describe('Share Kit', function(){
                         appkey: '3125265748',
                         uid: '1624118717'
                     }
-                    //prefix: 'yoyoyo'
                 };
                 var sk = new SK(o);
 
@@ -155,21 +140,7 @@ describe('Share Kit', function(){
             });
         });
         describe('The wechat share function', function(){
-            it('Should conduct correct info in wechat sharing', function(){
-                var cache = SK.prototype.detectDevice;
-                SK.prototype.detectDevice = function(){
-                    return 'phone';
-                };
-                var sk = new SK({
-                    link: location.href,
-                    title: 'wechat function',
-                    desc: 'wechat function test you wether you love me.',
-                    portrait: 'https://d13yacurqjgara.cloudfront.net/users/52277/screenshots/1807333/gille_dribbble_boreas_v01-01.png'
-                });
-                sk.wxEle.dispatchEvent(evt, true);
-                SK.prototype.detectDevice = cache;
-            });
-            it('Should show qrcode when in pc env', function(){
+            it('Should show qrcode when outside wechat env', function(){
                 var sk = new SK({
                     link: location.href
                 });
