@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/sunaiwen/projects/shareKit/js/shareKit.js":[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var QRCode = require('qrcode');
 var doc = window.document;
 var SK = function(options){
@@ -103,7 +103,7 @@ SK.prototype.qzoneFunc = function(self){
 //    weibo share handler
 SK.prototype.weiboFunc = function(self){
     var conf = self.getOption();
-    var defaultText = conf.title+'--'+conf.desc+': '+conf.link;
+    var defaultText = conf.title+': '+conf.link;
     //    init weibo element's id
     self.wbEle.id = 'wb_publish';
     WB2.anyWhere(function(W){
@@ -117,8 +117,6 @@ SK.prototype.weiboFunc = function(self){
             id: 'wb_publish',
             appkey: conf.wbOption.appkey || '',
             uid: conf.wbOption.appkey || '',
-            //appkey:'3125265748',
-            //uid: '1624118717',
             default_text: defaultText
         });
     });
@@ -130,7 +128,7 @@ SK.prototype.twitterFunc = function(self){
     var shareUrl = 'https://twitter.com/share';
     var shareObj = {
         url: conf.link,
-        text: conf.title +' - '+conf.desc,
+        text: conf.title,
         countUrl: conf.link,
         via: conf.twitterName || ''
     };
@@ -284,7 +282,7 @@ SK.prototype.urlConcat = function(o, url){
 
 // exports
 module.exports = SK;
-},{"qrcode":"/Users/sunaiwen/projects/shareKit/modules/qrcodejs/qrcode.js"}],"/Users/sunaiwen/projects/shareKit/modules/qrcodejs/qrcode.js":[function(require,module,exports){
+},{"qrcode":2}],2:[function(require,module,exports){
 (function (global){
 ;__browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 /**
@@ -907,7 +905,7 @@ var QRCode;
 }).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],"/Users/sunaiwen/projects/shareKit/tests/testWechat.js":[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 var SK = require('../js/shareKit.js');
 var expect = chai.expect;
 
@@ -931,4 +929,4 @@ describe('Wechat sharing test', function(){
         expect(wxObj.img_url).to.equal('http://usualimages.qiniudn.com/1.jpeg');
     })
 });
-},{"../js/shareKit.js":"/Users/sunaiwen/projects/shareKit/js/shareKit.js"}]},{},["/Users/sunaiwen/projects/shareKit/tests/testWechat.js"]);
+},{"../js/shareKit.js":1}]},{},[3]);

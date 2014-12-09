@@ -102,7 +102,7 @@ SK.prototype.qzoneFunc = function(self){
 //    weibo share handler
 SK.prototype.weiboFunc = function(self){
     var conf = self.getOption();
-    var defaultText = conf.title+'--'+conf.desc+': '+conf.link;
+    var defaultText = conf.title+': '+conf.link;
     //    init weibo element's id
     self.wbEle.id = 'wb_publish';
     WB2.anyWhere(function(W){
@@ -116,8 +116,6 @@ SK.prototype.weiboFunc = function(self){
             id: 'wb_publish',
             appkey: conf.wbOption.appkey || '',
             uid: conf.wbOption.appkey || '',
-            //appkey:'3125265748',
-            //uid: '1624118717',
             default_text: defaultText
         });
     });
@@ -129,7 +127,7 @@ SK.prototype.twitterFunc = function(self){
     var shareUrl = 'https://twitter.com/share';
     var shareObj = {
         url: conf.link,
-        text: conf.title +' - '+conf.desc,
+        text: conf.title,
         countUrl: conf.link,
         via: conf.twitterName || ''
     };
